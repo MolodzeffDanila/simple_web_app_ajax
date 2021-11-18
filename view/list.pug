@@ -1,0 +1,49 @@
+doctype html
+html(lang="ru")
+    head
+        meta(name='viewport' content='width =  device-width, initial-scale = 1')
+        link(rel='stylesheet' href='https://www.w3schools.com/lib/w3.css')
+        script(src='/static/filter.js')
+        title= "список"
+    body
+        .w3-container(style='margin-right:50%')
+            if user ==="admin" && password ==="admin"
+                button.w3-btn.w3-blue.w3-margin-top.w3-margin-left.w3-round-medium(style='font-size:32px' onclick="document.getElementById('id01').style.display='block'" id='add') Добавить книгу
+            a.w3-btn.w3-blue.w3-margin-top.w3-round-medium.w3-margin-left(style='font-size:32px' href='/') Вход
+        h1.w3-margin-left Варианты фильтров:
+        .w3-container.w3-margin-left
+            button.w3-btn.w3-blue.w3-margin-top.w3-margin-left.w3-round-large#01(style='font-size:20px' onclick='filter(this)') Все книги
+            button.w3-btn.w3-blue.w3-margin-top.w3-margin-left.w3-round-large#02(style='font-size:20px' onclick='filter(this)') Книги, имеющиеся в наличии
+            button.w3-btn.w3-blue.w3-margin-top.w3-margin-left.w3-round-large#03(style='font-size:20px' onclick='filter(this)') Выданные книги
+        .w3-row
+            each i in books
+                a(href='/book/'+i.title)
+                    .w3-col.m3.l3.w3-round-xlarge.w3-border-blue.w3-padding-small.w3-margin(style ='border:6px solid' id=i.id)
+                        p Название: #{i.title}
+                        p Год выпуска: #{i.year}
+                        p Автор: #{i.author}
+                        p Дата получения: #{i.date_of_taking}
+                        p Дата возвращения: #{i.date_of_return}
+        #id01.w3-modal
+            .w3-modal-content
+                .w3-container
+                    span.w3-button.w3-display-topright(onclick="document.getElementById('id01').style.display='none'") X
+                    form.w3-container(action='/add' method="POST")
+                        h2.w3-blue Добавление книги
+                        .w3-padding-16
+                            label() Название книги:
+                            input.w3-input(name="title")
+                            br
+                        .w3-padding-16
+                            label() Год выпуска:
+                            input.w3-input(name="year" type="number")
+                            br
+                        .w3-padding-16
+                            label() Автор книги:
+                            input.w3-input(name="author")
+                            br
+                        .w3-padding-16
+                            label Краткое описание:
+                            textarea(name="description" style="height:100px;width:100%")
+                            br
+                        button.w3-padding-16.w3-btn.w3-blue(type="submit" style='height: 100%') Добавить

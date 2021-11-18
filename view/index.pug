@@ -1,0 +1,21 @@
+doctype html
+html(lang="ru")
+    head
+        meta(name='viewport' content='width =  device-width, initial-scale = 1')
+        link(href='https://www.w3schools.com/lib/w3.css', rel='stylesheet')
+        title= "Вход"
+    body
+        .w3-col.m3.l3.w3-round-xlarge.w3-border-blue.w3-padding-small(style="border: 6px solid; width:30%;position: absolute;margin-left: 30%;margin-top: 10%")
+            form(action='/login' method="POST" )
+                div
+                    h1.w3-blue.w3-padding-16(align='center') Вход
+                    label.w3-padding-16 User name
+                    br
+                    input.w3-input(name="nick")
+                    br
+                div
+                    label.w3-padding-16 Password
+                    br
+                    input.w3-input.w3-ma(name="password" type='password')
+                    br
+                button.w3-btn.w3-blue.w3-margin(style='font-size:32px; width:30%' type='submit') Войти

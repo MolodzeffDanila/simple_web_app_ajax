@@ -1,0 +1,57 @@
+doctype html
+html(lang="ru")
+    head
+        meta(name='viewport' content='width =  device-width, initial-scale = 1')
+        link(rel='stylesheet' href='https://www.w3schools.com/lib/w3.css')
+        title= book.title
+    body
+        .w3-col.m3.l3.w3-round-xlarge.w3-border-blue.w3-padding-small.w3-margin(style="border: 6px solid; width:98%")
+            h1.w3-blue(style="padding-left: 20px") #{book.title}
+            h2 Автор: #{book.author}
+            h2 Год выпуска: #{book.year}
+            h3 Кому выдана: #{book.user}
+            h3 Дата выдачи: #{book.date_of_taking}
+            h3 Дата возврата:#{book.date_of_return}
+            p.w3-large #{book.description}
+            .w3-container
+                if user ==="admin" && password ==="admin"
+                    button.w3-btn.w3-blue.w3-padding-16.w3-margin-bottom(style='font-size:32px' onclick="document.getElementById('id02').style.display='block'") Изменить книгу
+                    button.w3-btn.w3-blue.w3-margin-left.w3-padding-16.w3-margin-bottom(style='font-size:32px' onclick="document.getElementById('id03').style.display='block'") Выдать книгу
+                    a.w3-btn.w3-blue.w3-margin-left.w3-padding-16.w3-margin-bottom(style='font-size:32px' href='/return/' + book.id) Вернуть книгу
+                    a.w3-btn.w3-blue.w3-margin-left.w3-padding-16.w3-margin-bottom(style='font-size:32px' href='/remove/' + book.id) Удалить книгу
+                a.w3-btn.w3-blue.w3-padding-16.w3-margin-bottom.w3-margin-left(style='font-size:32px' href="/book_list") Вернуться к списку
+        #id02.w3-modal
+            .w3-modal-content
+                .w3-container
+                    span.w3-button.w3-display-topright(onclick="document.getElementById('id02').style.display='none'") X
+                    form.w3-container(action='/change/' + book.id method="POST")
+                        h2.w3-blue Изменение книги
+                        .w3-padding-16
+                            label() Название книги:
+                            input.w3-input(name="title" value=book.title)
+                            br
+                        .w3-padding-16
+                            label() Год выпуска:
+                            input.w3-input(name="year" value=book.year type="number")
+                            br
+                        .w3-padding-16
+                            label() Автор книги:
+                            input.w3-input(name="author" value=book.author)
+                            br
+                        .w3-padding-16
+                            label() Краткое описание:
+                            br
+                            textarea(name="description" style="height:100px;width:100%") #{book.description}
+                            br
+                        button.w3-padding-16.w3-btn.w3-blue.w3-margin(type="submit" style='font-size:32px') Изменить
+        #id03.w3-modal
+            .w3-modal-content
+                .w3-container
+                    span.w3-button.w3-display-topright(onclick="document.getElementById('id03').style.display='none'") X
+                    form.w3-container(action='/take/' + book.id method="POST")
+                        h2.w3-blue Выдача книги
+                        .w3-padding-16
+                            label Кому выдана:
+                            input.w3-input(name="user")
+                            br
+                        button.w3-padding-16.w3-btn.w3-blue.w3-margin(type="submit" style='font-size:32px') Выдать
